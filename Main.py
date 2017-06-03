@@ -1,6 +1,5 @@
 import naver
-import naver_movie
 import rotten
-URL = input('Input your movie name : ') 
-code=naver_movie.SearchMovieName(URL)   
+URL = input("Input movie name: ")
+code=naver.SearchMovieName(URL)   
 naver.NaverReview(code)

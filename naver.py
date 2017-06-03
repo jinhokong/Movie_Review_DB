@@ -1,8 +1,8 @@
 import urllib.request
 from urllib.request import urlopen
 import re
+from urllib.parse import quote
 from bs4 import BeautifulSoup
-import naver_movie
 import pymysql
 def NaverReview(CODE):
     total=0
@@ -63,6 +63,16 @@ def NaverReview(CODE):
         total=total+int(score)
     print(total/len(lis))
    # f.close()
+def SearchMovieName(input):
+    input1=quote(input)     #url 코드 인코딩
+    url="http://auto.movie.naver.com/ac?q_enc=UTF-8&st=1&r_lt=1&n_ext=1&t_koreng=1&r_format=json&r_enc=UTF-8&r_unicode=0&r_escape=1&q="+input1
+    url_to_re=re.compile('\["[0-9]+"\]\,\["movie"\]')   #원시코드에서 정규표현식
+    re_to_re=re.compile('[0-9]+')   #정규표현식에서 정규표현식
+    m=urlopen(url)  #url 불러옴
+    msg=m.read()    #url 읽음
+    links=url_to_re.findall(str(msg))   #1차 정규표현식 적용
+    final=re_to_re.findall(str(links)) #2차 정규표현식 적용
+    return final[0]
 URL = input("Input movie name: ")
-code=naver_movie.SearchMovieName(URL)   
+code=SearchMovieName(URL)   
 NaverReview(code)
