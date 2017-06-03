@@ -4,18 +4,16 @@ import re
 from urllib.parse import quote
 from bs4 import BeautifulSoup
 import pymysql
+import dbstore
 def NaverReview(CODE):
     total=0
     Rid=0
     url1='http://movie.naver.com/movie/bi/mi/pointWriteFormList.nhn?code='
     url2='&type=after&isActualPointWriteExecute=false&isMileageSubscriptionAlready=false&isMileageSubscriptionReject=false&page='
-    #f = open('review_'+code+'.txt', 'w')
     page = int(1)
-    #count = int(input('Page Number : '))  
-    count=10
-    conn = pymysql.connect(host='127.0.0.1',user='root',password='a*70427042',db='moviewatch' ,charset='utf8mb4',cursorclass=pymysql.cursors.DictCursor,port=8888)
-    cur=conn.cursor()
-    cur.execute("use moviewatch")
+    count=10#review page count
+    dbstore
+
 
     while count: 
         URL = url1+CODE+url2+str(page)
@@ -51,8 +49,7 @@ def NaverReview(CODE):
             print (score)
             print (time_s)
 #            cur.execute("insert into review(Rno,Ruser,Rstar,Rreview) VALUES(\"%d\",\"%s\",\"%d\",\"%s\")"(Rid,name,score,reple))
-            cur.execute("insert into review(Rno,Ruser,Rstar,Rident,Rreview,Rsite,favorite_FNo) VALUES('%d','%s','%d','%d','%s','%d','%d')" %(Rid,name,score,Rid,reple,1,Rid))
-            cur.connection.commit()
+            dbstore.store(Rid,name,score,Rid,reple,1,Rid)
 #            f.write('time : ' + time_s + '\t')             
 #            f.write('score : ' + score + '\n')
 #            f.write('review : ' + reple + '\t')  
