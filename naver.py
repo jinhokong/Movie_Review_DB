@@ -7,7 +7,7 @@ import pymysql
 import dbstore
 def NaverReview(CODE):
     total=0
-    Rid=0
+#    Rid=0
     url1='http://movie.naver.com/movie/bi/mi/pointWriteFormList.nhn?code='
     url2='&type=after&isActualPointWriteExecute=false&isMileageSubscriptionAlready=false&isMileageSubscriptionReject=false&page='
     page = int(1)
@@ -40,13 +40,13 @@ def NaverReview(CODE):
             child = children.findChildren()
             time = str(child[3])
             time_s = time[4:17]
-            Rid=Rid+1
+        #    Rid=Rid+1
             print(name)
             print (reple)
             print (score)
             print (time_s)
             try:
-                dbstore.store(Rid,name,score,reple,2,int(code),1)
+                dbstore.store(name,score,reple,2,int(CODE),1)
             except pymysql.err.ProgrammingError as e:
                 pass
         count -= 1
@@ -66,6 +66,4 @@ def SearchMovieName(input):
     links=url_to_re.findall(str(msg))   #1차 정규표현식 적용
     final=re_to_re.findall(str(links)) #2차 정규표현식 적용
     return final[0]
-URL = input("Input movie name: ")
-code=SearchMovieName(URL)   
-NaverReview(code)
+
