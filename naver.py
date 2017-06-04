@@ -49,7 +49,7 @@ def NaverReview(CODE):
             print (score)
             print (time_s)
 #            cur.execute("insert into review(Rno,Ruser,Rstar,Rreview) VALUES(\"%d\",\"%s\",\"%d\",\"%s\")"(Rid,name,score,reple))
-            dbstore.store(Rid,name,score,Rid,reple,1,Rid)
+            dbstore.store(Rid,name,score,reple,2,int(code),1)
 #            f.write('time : ' + time_s + '\t')             
 #            f.write('score : ' + score + '\n')
 #            f.write('review : ' + reple + '\t')  
