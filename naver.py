@@ -12,9 +12,6 @@ def NaverReview(CODE):
     url2='&type=after&isActualPointWriteExecute=false&isMileageSubscriptionAlready=false&isMileageSubscriptionReject=false&page='
     page = int(1)
     count=10#review page count
-    dbstore
-
-
     while count: 
         URL = url1+CODE+url2+str(page)
         open_url = urlopen(URL)
@@ -48,11 +45,10 @@ def NaverReview(CODE):
             print (reple)
             print (score)
             print (time_s)
-#            cur.execute("insert into review(Rno,Ruser,Rstar,Rreview) VALUES(\"%d\",\"%s\",\"%d\",\"%s\")"(Rid,name,score,reple))
-            dbstore.store(Rid,name,score,reple,2,int(code),1)
-#            f.write('time : ' + time_s + '\t')             
-#            f.write('score : ' + score + '\n')
-#            f.write('review : ' + reple + '\t')  
+            try:
+                dbstore.store(Rid,name,score,reple,2,int(code),1)
+            except pymysql.err.ProgrammingError as e:
+                pass
         count -= 1
         if not count:
             break
